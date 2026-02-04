@@ -461,6 +461,63 @@
   }
 }
 
+/* Stop Message Screen */
+.stop-message-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+  animation: fadeInStopMessage 0.3s ease-out;
+}
+
+.stop-message-text {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ff4d7d;
+  text-align: center;
+  padding: 0 2rem;
+  text-shadow: 2px 2px 4px rgba(255, 77, 125, 0.2);
+  animation: stopMessagePulse 0.5s ease-in-out;
+}
+
+@keyframes fadeInStopMessage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes stopMessagePulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive Stop Message */
+@media (max-width: 768px) {
+  .stop-message-text {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stop-message-text {
+    font-size: 1.5rem;
+  }
+}
+
 /* Restart Button */
 .restart-button {
   position: fixed;

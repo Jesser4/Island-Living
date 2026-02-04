@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Stack from '../components/Stack'
 import gifImage from '../data/c91baedce19a1294db806c6769232720.gif'
 import awwImage from '../data/aww.jpg'
@@ -12,10 +12,25 @@ const SecondPage = () => {
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 })
   const [showAwwPicture, setShowAwwPicture] = useState(false)
   const [showFinalText, setShowFinalText] = useState(false)
+  const [noButtonCanMove, setNoButtonCanMove] = useState(false)
+  const [noButtonMoveCount, setNoButtonMoveCount] = useState(0)
+  const [showStopMessage, setShowStopMessage] = useState(false)
+  const lastMoveTime = useRef(0)
 
   const handleRestart = () => {
     window.location.reload()
   }
+
+  // Enable No button movement after 1 second
+  useEffect(() => {
+    if (showLetter) {
+      const timer = setTimeout(() => {
+        setNoButtonCanMove(true)
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [showLetter])
 
   const cards = [
     {
@@ -65,7 +80,7 @@ const SecondPage = () => {
     // After 3 seconds, transition to final text
     setTimeout(() => {
       setShowFinalText(true)
-    }, 3000)
+    }, 2500)
   }
 
   const handleNo = () => {
@@ -74,6 +89,9 @@ const SecondPage = () => {
   }
 
   const handleNoButtonMouseMove = (e) => {
+    // Don't move the button until 1 second has passed
+    if (!noButtonCanMove) return
+
     const button = e.currentTarget
     const rect = button.getBoundingClientRect()
     const buttonCenterX = rect.left + rect.width / 2
@@ -86,6 +104,28 @@ const SecondPage = () => {
 
     // If mouse is within 100px of button center, move it
     if (distance < 100) {
+      // Only count once per move (cooldown of 500ms)
+      const now = Date.now()
+      if (now - lastMoveTime.current < 500) {
+        return
+      }
+      lastMoveTime.current = now
+
+      const newCount = noButtonMoveCount + 1
+
+      // Check if they've tried 7 times
+      if (newCount >= 7) {
+        setShowStopMessage(true)
+        setNoButtonMoveCount(0) // Reset counter
+        setTimeout(() => {
+          setShowStopMessage(false)
+          setNoButtonPosition({ x: 0, y: 0 }) // Reset button position
+        }, 3000)
+        return
+      }
+
+      setNoButtonMoveCount(newCount)
+
       const viewportWidth = window.innerWidth
       const viewportHeight = window.innerHeight
       const buttonWidth = rect.width
@@ -138,6 +178,14 @@ const SecondPage = () => {
         <div className="aww-picture-wrapper">
           <img src={awwImage} alt="Aww" className="aww-picture" />
         </div>
+      </div>
+    )
+  }
+
+  if (showStopMessage) {
+    return (
+      <div className="stop-message-container">
+        <h1 className="stop-message-text">Stop trying to click no</h1>
       </div>
     )
   }
