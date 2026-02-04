@@ -1,0 +1,546 @@
+.gif-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.gif-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: fadeInGif 0.6s ease-out;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.gif-image.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+@keyframes fadeInGif {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Heart Button */
+.heart-button {
+  position: absolute;
+  bottom: 10%;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d7d 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: heartAppear 0.8s ease-out, heartbeat 1.5s ease-in-out infinite;
+  box-shadow: 0 10px 30px rgba(255, 77, 125, 0.4);
+  transform: rotate(-45deg);
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.heart-button::before,
+.heart-button::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d7d 100%);
+  border-radius: 50%;
+}
+
+.heart-button::before {
+  top: -75px;
+  left: 0;
+}
+
+.heart-button::after {
+  left: 75px;
+  top: 0;
+}
+
+.heart-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transform: rotate(45deg);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.heart-button:hover {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+@keyframes heartAppear {
+  0% {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0);
+  }
+  50% {
+    transform: rotate(-45deg) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: rotate(-45deg) scale(1);
+  }
+  50% {
+    transform: rotate(-45deg) scale(1.05);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gif-image {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+
+  .heart-button {
+    width: 120px;
+    height: 120px;
+  }
+
+  .heart-button::before,
+  .heart-button::after {
+    width: 120px;
+    height: 120px;
+  }
+
+  .heart-button::before {
+    top: -60px;
+  }
+
+  .heart-button::after {
+    left: 60px;
+  }
+
+  .heart-text {
+    font-size: 1.4rem;
+  }
+}
+
+/* Valentine Letter */
+.letter-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+  animation: fadeInLetter 1s ease-out;
+}
+
+.letter {
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(255, 77, 125, 0.3);
+  animation: letterSlideIn 0.8s ease-out;
+  position: relative;
+  border: 3px solid #ffb3d9;
+}
+
+.letter-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.heart-decoration {
+  font-size: 4rem;
+  animation: heartPulse 1.5s ease-in-out infinite;
+}
+
+.letter-content {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.valentine-question {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ff4d7d;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 2px 2px 4px rgba(255, 77, 125, 0.1);
+}
+
+.letter-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.answer-button {
+  padding: 1.2rem 3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.yes-button {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d7d 100%);
+  color: white;
+}
+
+.yes-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 77, 125, 0.5);
+}
+
+.no-button {
+  background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+  color: #666;
+  z-index: 9999;
+}
+
+.no-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+@keyframes fadeInLetter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes letterSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive Letter */
+@media (max-width: 768px) {
+  .letter {
+    width: 85%;
+    padding: 2rem 1.5rem;
+  }
+
+  .valentine-question {
+    font-size: 2rem;
+  }
+
+  .answer-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+
+  .letter-buttons {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .valentine-question {
+    font-size: 1.6rem;
+  }
+
+  .heart-decoration {
+    font-size: 3rem;
+  }
+
+  .answer-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Aww Picture Reveal */
+.aww-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.letter-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+  filter: blur(3px);
+  animation: fadeInBackground 0.8s ease-out;
+}
+
+.aww-picture-wrapper {
+  position: relative;
+  z-index: 10;
+  animation: pictureReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.aww-picture {
+  max-width: 85vw;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(255, 77, 125, 0.5);
+  object-fit: contain;
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pictureReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(100px) rotateX(-15deg);
+  }
+  60% {
+    transform: scale(1.05) translateY(-10px) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0deg);
+  }
+}
+
+/* Final Text Screen */
+.final-text-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d7d 50%, #ff3366 100%);
+  animation: finalScreenFadeIn 1s ease-out;
+}
+
+.final-message {
+  text-align: center;
+  padding: 3rem;
+  animation: messageSlideUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.final-text {
+  font-size: 4rem;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 1.5rem 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+.final-subtext {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes finalScreenFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes messageSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 4px 30px rgba(255, 255, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Responsive for Aww Picture and Final Text */
+@media (max-width: 768px) {
+  .aww-picture {
+    max-width: 90vw;
+    max-height: 75vh;
+  }
+
+  .final-text {
+    font-size: 2.5rem;
+    padding: 0 1rem;
+  }
+
+  .final-subtext {
+    font-size: 1.3rem;
+    padding: 0 1rem;
+  }
+
+  .final-message {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aww-picture {
+    max-width: 95vw;
+    max-height: 70vh;
+  }
+
+  .final-text {
+    font-size: 2rem;
+  }
+
+  .final-subtext {
+    font-size: 1.1rem;
+  }
+}
+
+/* Restart Button */
+.restart-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: fadeInRestart 0.8s ease-out;
+}
+
+@keyframes fadeInRestart {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.restart-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.restart-arrow {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.restart-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive Restart Button */
+@media (max-width: 768px) {
+  .restart-button {
+    top: 15px;
+    left: 15px;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .restart-arrow {
+    font-size: 1rem;
+  }
+
+  .restart-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .restart-button {
+    top: 10px;
+    left: 10px;
+    padding: 6px 10px;
+  }
+
+  .restart-arrow {
+    font-size: 0.9rem;
+  }
+
+  .restart-text {
+    font-size: 0.75rem;
+  }
+}

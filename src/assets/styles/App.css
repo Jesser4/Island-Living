@@ -1,0 +1,323 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+}
+
+.app {
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-color: #000;
+  overflow: hidden;
+  transition: transform 2s ease-in, filter 2s ease-in;
+  will-change: filter;
+}
+
+.app.pan-up {
+  animation: panUpAnimation 2s ease-in forwards;
+}
+
+@keyframes panUpAnimation {
+  0% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  25% {
+    transform: translateY(0);
+    filter: brightness(1.2);
+  }
+  50% {
+    transform: translateY(0);
+    filter: brightness(1.4);
+  }
+  75% {
+    transform: translateY(0);
+    filter: brightness(1.6);
+  }
+  100% {
+    transform: translateY(0);
+    filter: brightness(1.8);
+  }
+}
+
+/* Light Rays Background */
+.light-rays-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  transition: transform 2s ease-in, filter 2s ease-in;
+  will-change: transform, filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.app.pan-up .light-rays-background {
+  animation: lightRaysExpand 2s ease-in forwards;
+}
+
+@keyframes lightRaysExpand {
+  0% {
+    transform: scale(1) translateY(0) translateZ(0);
+    filter: brightness(1);
+  }
+  20% {
+    transform: scale(1.1) translateY(-4vh) translateZ(0);
+    filter: brightness(1.15);
+  }
+  40% {
+    transform: scale(1.2) translateY(-8vh) translateZ(0);
+    filter: brightness(1.3);
+  }
+  60% {
+    transform: scale(1.3) translateY(-12vh) translateZ(0);
+    filter: brightness(1.5);
+  }
+  80% {
+    transform: scale(1.4) translateY(-16vh) translateZ(0);
+    filter: brightness(1.65);
+  }
+  100% {
+    transform: scale(1.5) translateY(-20vh) translateZ(0);
+    filter: brightness(1.8);
+  }
+}
+
+/* Content Container */
+.content {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: transform 2s ease-in, opacity 2s ease-in;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.app.pan-up .content {
+  animation: contentPanDown 2s ease-in forwards;
+}
+
+@keyframes contentPanDown {
+  0% {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+  }
+  15% {
+    transform: translateY(18vh) translateZ(0);
+    opacity: 0.95;
+  }
+  30% {
+    transform: translateY(36vh) translateZ(0);
+    opacity: 0.85;
+  }
+  45% {
+    transform: translateY(54vh) translateZ(0);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translateY(72vh) translateZ(0);
+    opacity: 0.55;
+  }
+  75% {
+    transform: translateY(90vh) translateZ(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(120vh) translateZ(0);
+    opacity: 0.3;
+  }
+}
+
+/* Blur Text Animation */
+.blur-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  max-width: 90vw;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+  .blur-text {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blur-text {
+    font-size: 1.8rem;
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+/* Flash Effect */
+.flash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% -20%, rgba(255, 217, 112, 0) 0%, rgba(255, 217, 112, 0) 100%);
+  animation: flashFromLight 1.5s ease-out forwards;
+  will-change: background, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes flashFromLight {
+  0% {
+    background: radial-gradient(circle at 50% -20%, rgba(255, 217, 112, 0.4) 0%, transparent 40%);
+    opacity: 0.6;
+  }
+  15% {
+    background: radial-gradient(circle at 50% -15%, rgba(255, 217, 112, 0.6) 5%, rgba(255, 217, 112, 0.4) 35%, transparent 50%);
+    opacity: 0.7;
+  }
+  30% {
+    background: radial-gradient(circle at 50% -10%, rgba(255, 217, 112, 0.9) 10%, rgba(255, 217, 112, 0.6) 40%, transparent 60%);
+    opacity: 0.8;
+  }
+  45% {
+    background: radial-gradient(circle at 50% -5%, #ffd970 20%, rgba(255, 217, 112, 0.7) 50%, transparent 65%);
+    opacity: 0.875;
+  }
+  60% {
+    background: radial-gradient(circle at 50% 0%, #ffd970 30%, rgba(255, 217, 112, 0.8) 60%, transparent 70%);
+    opacity: 0.95;
+  }
+  72% {
+    background: radial-gradient(circle at 50% 5%, #ffd970 40%, rgba(255, 235, 150, 0.85) 70%, transparent 80%);
+    opacity: 0.975;
+  }
+  85% {
+    background: radial-gradient(circle at 50% 10%, #ffd970 50%, rgba(255, 235, 150, 0.9) 80%, transparent 90%);
+    opacity: 1;
+  }
+  93% {
+    background: radial-gradient(circle at 50% 20%, #fff8e1 70%, white 90%);
+    opacity: 1;
+  }
+  100% {
+    background: white;
+    opacity: 1;
+  }
+}
+
+/* Blank Page */
+.blank-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+/* Restart Button */
+.restart-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: fadeInRestart 0.8s ease-out;
+}
+
+@keyframes fadeInRestart {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.restart-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.restart-arrow {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.restart-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive Restart Button */
+@media (max-width: 768px) {
+  .restart-button {
+    top: 15px;
+    left: 15px;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .restart-arrow {
+    font-size: 1rem;
+  }
+
+  .restart-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .restart-button {
+    top: 10px;
+    left: 10px;
+    padding: 6px 10px;
+  }
+
+  .restart-arrow {
+    font-size: 0.9rem;
+  }
+
+  .restart-text {
+    font-size: 0.75rem;
+  }
+}
