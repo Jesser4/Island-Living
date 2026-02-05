@@ -34,22 +34,22 @@ const SecondPage = () => {
 
   const cards = [
     {
-      content: 'Welcome to your journey'
+      content: 'You are so creative, I get jealous of your talent'
     },
     {
-      content: 'Discover inner peace'
+      content: 'You bring me so much peace that I didnt know I needed'
     },
     {
-      content: 'Embrace the present moment'
+      content: 'You are beyond considerate, it makes my heart flutter everytime you are around'
     },
     {
-      content: 'Find your balance'
+      content: 'You bring the most amazing balance into my life, keeping me regulated and down to earth'
     },
     {
-      content: 'Trust the process'
+      content: 'I get so excited for you to show and share new things with me'
     },
     {
-      content: 'You are exactly where you need to be'
+      content: 'We are exactly where we need to be'
     }
   ]
 
