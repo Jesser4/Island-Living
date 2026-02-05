@@ -5,9 +5,11 @@ import './Stack.css'
 const Stack = ({ cards = [], onComplete }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isInitialMount, setIsInitialMount] = useState(true)
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
+      setIsInitialMount(false)
       setDirection(1)
       setCurrentIndex(currentIndex + 1)
     }
@@ -15,6 +17,7 @@ const Stack = ({ cards = [], onComplete }) => {
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
+      setIsInitialMount(false)
       setDirection(-1)
       setCurrentIndex(currentIndex - 1)
     }
@@ -26,13 +29,31 @@ const Stack = ({ cards = [], onComplete }) => {
   return (
     <div className="stack-container">
       <div className="stack-wrapper">
-        <AnimatePresence initial={false} custom={direction}>
+        <AnimatePresence initial={true} custom={direction}>
           {visibleCards.map((card, index) => {
             const actualIndex = currentIndex + index
             const zIndex = visibleCards.length - index
             const scale = 1 - index * 0.05
             const yOffset = index * 20
             const opacity = 1 - index * 0.3
+
+            // Determine entrance direction based on card index
+            const getInitialPosition = () => {
+              const direction = actualIndex % 4
+              const distance = 1000
+              switch (direction) {
+                case 0: // From left
+                  return { x: -distance, y: yOffset, rotate: -15 }
+                case 1: // From right
+                  return { x: distance, y: yOffset, rotate: 15 }
+                case 2: // From top
+                  return { x: 0, y: yOffset - distance, rotate: -10 }
+                case 3: // From bottom
+                  return { x: 0, y: yOffset + distance, rotate: 10 }
+                default:
+                  return { x: 0, y: yOffset - 50, rotate: 0 }
+              }
+            }
 
             return (
               <motion.div
@@ -41,14 +62,26 @@ const Stack = ({ cards = [], onComplete }) => {
                 style={{
                   zIndex,
                 }}
-                initial={{
-                  scale: scale - 0.1,
-                  y: yOffset - 50,
-                  opacity: 0,
-                }}
+                initial={
+                  isInitialMount
+                    ? {
+                        ...getInitialPosition(),
+                        scale: scale - 0.1,
+                        opacity: 0,
+                      }
+                    : {
+                        x: 0,
+                        y: yOffset,
+                        rotate: 0,
+                        scale,
+                        opacity,
+                      }
+                }
                 animate={{
-                  scale,
+                  x: 0,
                   y: yOffset,
+                  rotate: 0,
+                  scale,
                   opacity,
                 }}
                 exit={{
@@ -56,10 +89,18 @@ const Stack = ({ cards = [], onComplete }) => {
                   y: yOffset + 50,
                   opacity: 0,
                 }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
+                transition={
+                  isInitialMount
+                    ? {
+                        duration: 0.8,
+                        delay: 0.5 + (index * 0.15), // Base delay of 0.5s plus stagger
+                        ease: [0.34, 1.56, 0.64, 1],
+                      }
+                    : {
+                        duration: 0.3,
+                        ease: 'easeInOut',
+                      }
+                }
               >
                 <div className="card-content">
                   {card.content}
